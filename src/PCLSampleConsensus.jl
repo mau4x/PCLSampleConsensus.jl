@@ -15,6 +15,7 @@ end
 cxx"""
 #include <pcl/sample_consensus/model_types.h>
 #include <pcl/sample_consensus/method_types.h>
+#include <pcl/sample_consensus/sac_model_plane.h>
 """
 
 for enumname in [
@@ -38,7 +39,7 @@ for enumname in [
     :SACMODEL_STICK
     ]
     # build icxx expr
-    ex = Expr(:macrocall, symbol("@icxx_str"), string("pcl::", enumname, ";"))
+    ex = Expr(:macrocall, Symbol("@icxx_str"), string("pcl::", enumname, ";"))
     @eval begin
         enumtyp = $ex
         isa(enumtyp, Cxx.CppEnum)
@@ -56,12 +57,14 @@ for intname in [
     :SAC_MLESAC,
     :SAC_PROSAC,
     ]
-    ex = Expr(:macrocall, symbol("@icxx_str"), string("pcl::", intname, ";"))
+    ex = Expr(:macrocall, Symbol("@icxx_str"), string("pcl::", intname, ";"))
     @eval begin
         global const $intname = $ex
         @assert isa($intname, Cint)
         export $intname
     end
 end
+
+abstract SampleConsensusModel
 
 end # module
