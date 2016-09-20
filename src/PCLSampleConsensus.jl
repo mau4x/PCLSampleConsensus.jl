@@ -40,10 +40,13 @@ for enumname in [
     ]
     # build icxx expr
     ex = Expr(:macrocall, Symbol("@icxx_str"), string("pcl::", enumname, ";"))
+    cppname = string("pcl::", enumname)
     @eval begin
         enumtyp = $ex
         isa(enumtyp, Cxx.CppEnum)
-        global const $enumname = enumtyp
+        @doc """
+        $($cppname)
+        """ global const $enumname = enumtyp
         export $enumname
     end
 end
@@ -58,8 +61,11 @@ for intname in [
     :SAC_PROSAC,
     ]
     ex = Expr(:macrocall, Symbol("@icxx_str"), string("pcl::", intname, ";"))
+    cppname = string("pcl::", intname)
     @eval begin
-        global const $intname = $ex
+        @doc """
+        $($cppname)
+        """ global const $intname = $ex
         @assert isa($intname, Cint)
         export $intname
     end
