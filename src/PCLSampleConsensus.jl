@@ -1,5 +1,16 @@
+"""
+The **pcl_sample_consensus** library holds SAmple Consensus (SAC) methods like
+RANSAC and models like planes and cylinders.
+
+http://docs.pointclouds.org/trunk/group__sample__consensus.html
+
+## Exports
+
+$(EXPORTS)
+"""
 module PCLSampleConsensus
 
+using DocStringExtensions
 using LibPCL
 using PCLCommon
 using Cxx
