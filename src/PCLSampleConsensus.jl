@@ -82,6 +82,6 @@ for intname in [
     end
 end
 
-abstract SampleConsensusModel
+abstract type SampleConsensusModel end
 
 end # module
